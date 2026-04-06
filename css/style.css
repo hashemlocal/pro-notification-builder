@@ -1,0 +1,242 @@
+
+* {
+            font-family: 'Tajawal', Arial, sans-serif;
+        }
+
+
+.font-cairo {
+    font-family: 'Cairo', sans-serif;
+}
+
+.code-font {
+    font-family: 'Fira Code', monospace !important;
+}
+
+/* تخصيص شريط التمرير */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* أنيميشن للعناصر */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* تأثيرات للكاردات */
+.hover-card {
+    transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* متغيرات مخصصة */
+.variable-tag {
+    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-family: 'Fira Code', monospace;
+}
+
+.variable-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+.variable-tag .remove {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.variable-tag .remove:hover {
+    opacity: 1;
+    color: #fee2e2;
+}
+
+/* محرر النص المتقدم */
+.advanced-editor {
+    border: 2px solid #e5e7eb;
+    transition: border-color 0.3s ease;
+}
+
+.advanced-editor:focus-within {
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* تبديل السمات */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #3B82F6;
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+/* وضع الظلام */
+body.dark-mode {
+    background-color: #1a202c;
+    color: #e2e8f0;
+}
+
+body.dark-mode .bg-white {
+    background-color: #2d3748 !important;
+}
+
+body.dark-mode .text-gray-800 {
+    color: #f7fafc !important;
+}
+
+body.dark-mode .text-gray-600 {
+    color: #cbd5e0 !important;
+}
+
+body.dark-mode .border-gray-300 {
+    border-color: #4a5568 !important;
+}
+
+body.dark-mode .bg-gray-50 {
+    background-color: #1e2a3a !important;
+}
+
+body.dark-mode .bg-gray-100 {
+    background-color: #1a202c !important;
+}
+
+body.dark-mode .text-gray-700 {
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .text-gray-500 {
+    color: #a0aec0 !important;
+}
+
+body.dark-mode .hover-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* تحسينات إضافية للشاشات الصغيرة */
+@media (max-width: 480px) {
+    .xs\:inline {
+        display: inline;
+    }
+    
+    .xs\:flex-none {
+        flex: none;
+    }
+    
+    .xs\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .xs\:grid-cols-6 {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    
+    .xs\:flex-row {
+        flex-direction: row;
+    }
+    
+    .text-xs {
+        font-size: 0.7rem;
+    }
+}
+
+/* تجنب الفواصل الطويلة */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* تحسين شريط التمرير في القوائم */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+/* في ملف style.css */
+#previewText {
+    white-space: pre-wrap;  /* يحافظ على فواصل الأسطر والمسافات البيضاء */
+    word-break: break-word; /* لتجنب تجاوز النص للحدود */
+}
