@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>مرجع Tailwind CSS الشامل - ألوان، خطوط، حدود والمزيد</title>
+    <!-- استخدام Tailwind عبر CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- إضافة خطوط عربية وخط رائع للأيقونات (اختياري للتحسين) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+         <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#5D5CDE',
+            secondary: '#E5E5FF',
+            dark: '#0F172A',
+            'dark-light': '#334155',
+            'light-gray': '#f5f5f5',
+          },
+          fontFamily: {
+            'arabic': ['Tajawal', 'Arial', 'ns-serif']
+          }
+        }
+      }
+    }
+  </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        /* أنيميشن بسيط للظهور */
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+    <!-- شريط علوي مع زر تبديل الوضع الليلي -->
+    <nav class="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-palette text-3xl text-blue-600 dark:text-blue-400"></i>
+                    <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-l from-blue-600 to-purple-600 text-transparent bg-clip-text">
+                        مرجع Tailwind CSS
+                    </h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <!-- مؤشر عدد الكلاسات (اختياري) -->
+                    <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-full">
+                        <i class="fas fa-tag ml-1"></i> 250+ كلاس
+                    </span>
+                    <!-- زر تبديل الوضع الليلي -->
+                    <button id="darkModeToggle" class="text-2xl text-gray-600 dark:text-yellow-400 hover:text-gray-900 dark:hover:text-yellow-300 transition">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- وصف سريع -->
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 flex items-center gap-2">
+                <i class="fas fa-info-circle text-blue-500"></i>
+                مرجع سريع لألوان وكلاسات Tailwind. اضغط على أي كلاس لنسخه. الصفحة تدعم الوضع الليلي تلقائياً.
+            </p>
+            
+        </div>
+        <div class="relative flex-1 max-w-lg mx-6 m-3"> 
+                <i class="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="globalSearch" placeholder="ابحث عن لون، تأثير، أو كلاس معين..." 
+                    class="w-full bg-blue-200 dark:bg-slate-700 border-solid rounded-xl ring-2 pr-12 pl-4 py-2.5 focus: focus:ring-indigo-500 outline-none transition-all">
+            </div>
+    </nav>
+  
+    <main class="container mx-auto px-4 py-8 space-y-12 fade-in">
+    
+
+        <!-- ========== قسم: مقدمة في نظام الألوان ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-paint-brush text-blue-600"></i>
+                نظام الألوان: 11 تدرجاً لكل لون (50 - 950)
+            </h2>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                Tailwind يأتي مع لوحة ألوان واسعة، لكل لون 11 تدرجاً: من <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-sm">50</span> (الأفتح) إلى <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-sm">950</span> (الأغمق). هذه التدرجات متاحة لكل كلاسات الألوان مثل <code class="text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">bg-*</code>, <code class="text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">text-*</code>, <code class="text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">border-*</code>.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-11 gap-2 text-center text-xs bg-gray-100 dark:bg-gray-800 p-3 rounded-xl">
+                <div class="p-1 bg-white dark:bg-gray-900 rounded shadow">50</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">100</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">200</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">300</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">400</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow font-bold text-blue-600">500</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">600</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">700</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">800</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow">900</div><div class="p-1 bg-white dark:bg-gray-900 rounded shadow font-bold">950</div>
+            </div>
+        </section>
+
+        <!-- ========== قسم: جميع الألوان مع تدرجاتها ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <i class="fas fa-swatchbook text-purple-600"></i>
+                لوحة الألوان الكاملة
+            </h2>
+            <div id="colorPaletteContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <p class="text-center text-gray-500 mt-4 text-sm"><i class="fas fa-mouse-pointer ml-1"></i> اضغط على أي مربع لنسخ اسم الكلاس (مثال: <code>bg-blue-500</code>)</p>
+        </section>
+
+        <!-- ========== قسم جديد: أحجام النصوص (Font Sizes) ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-text-height text-green-600"></i>
+                أحجام النصوص (Font Sizes) - كلاسات <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">text-*</code>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-xs text-gray-600 dark:text-gray-400">text-xs</div>
+                    <div class="text-xs font-bold">(12px)</div>
+                    <div class="text-xs mt-1">نص صغير</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">text-sm</div>
+                    <div class="text-sm font-bold">(14px)</div>
+                    <div class="text-sm mt-1">نص عادي</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-base text-gray-600 dark:text-gray-400">text-base</div>
+                    <div class="text-base font-bold">(16px)</div>
+                    <div class="text-base mt-1">نص أساسي</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-lg text-gray-600 dark:text-gray-400">text-lg</div>
+                    <div class="text-lg font-bold">(18px)</div>
+                    <div class="text-lg mt-1">نص كبير</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-xl text-gray-600 dark:text-gray-400">text-xl</div>
+                    <div class="text-xl font-bold">(20px)</div>
+                    <div class="text-xl mt-1">عنوان صغير</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-2xl text-gray-600 dark:text-gray-400">text-2xl</div>
+                    <div class="text-2xl font-bold">(24px)</div>
+                    <div class="text-2xl mt-1">عنوان</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-3xl text-gray-600 dark:text-gray-400">text-3xl</div>
+                    <div class="text-3xl font-bold">(30px)</div>
+                    <div class="text-3xl mt-1">عنوان</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-4xl text-gray-600 dark:text-gray-400">text-4xl</div>
+                    <div class="text-4xl font-bold">(36px)</div>
+                    <div class="text-4xl mt-1">كبير</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-5xl text-gray-600 dark:text-gray-400">text-5xl</div>
+                    <div class="text-5xl font-bold">(48px)</div>
+                    <div class="text-5xl mt-1">ضخم</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 p-3 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <div class="text-6xl text-gray-600 dark:text-gray-400">text-6xl</div>
+                    <div class="text-6xl font-bold">(60px)</div>
+                    <div class="text-6xl mt-1">عملاق</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== قسم جديد: أوزان الخطوط (Font Weights) ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-bold text-yellow-600"></i>
+                أوزان الخطوط (Font Weights) - كلاسات <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">font-*</code>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-thin text-lg">font-thin</span>
+                    <div class="text-xs text-gray-500">(100)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-extralight text-lg">font-extralight</span>
+                    <div class="text-xs text-gray-500">(200)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-light text-lg">font-light</span>
+                    <div class="text-xs text-gray-500">(300)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-normal text-lg">font-normal</span>
+                    <div class="text-xs text-gray-500">(400)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-medium text-lg">font-medium</span>
+                    <div class="text-xs text-gray-500">(500)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-semibold text-lg">font-semibold</span>
+                    <div class="text-xs text-gray-500">(600)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-bold text-lg">font-bold</span>
+                    <div class="text-xs text-gray-500">(700)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-extrabold text-lg">font-extrabold</span>
+                    <div class="text-xs text-gray-500">(800)</div>
+                </div>
+                <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+                    <span class="font-black text-lg">font-black</span>
+                    <div class="text-xs text-gray-500">(900)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== قسم جديد: أنواع الحدود (Border Styles) ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-border-style text-pink-600"></i>
+                أنواع الحدود (Border Styles) - كلاسات <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">border-*</code>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center border-2 border-solid border-blue-500 shadow-sm">
+                    <span class="font-medium">border-solid</span>
+                </div>
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center border-2 border-dashed border-green-500 shadow-sm">
+                    <span class="font-medium">border-dashed</span>
+                </div>
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center border-2 border-dotted border-purple-500 shadow-sm">
+                    <span class="font-medium">border-dotted</span>
+                </div>
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center border-2 border-double border-orange-500 shadow-sm">
+                    <span class="font-medium">border-double</span>
+                </div>
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center border-2 border-hidden border-red-500 shadow-sm opacity-50">
+                    <span class="font-medium">border-hidden</span>
+                </div>
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center border-2 border-none border-gray-500 shadow-sm">
+                    <span class="font-medium">border-none</span>
+                </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('border-solid')">border-solid</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('border-dashed')">border-dashed</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('border-dotted')">border-dotted</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('border-double')">border-double</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('border-hidden')">border-hidden</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('border-none')">border-none</span>
+            </div>
+        </section>
+
+        <!-- ========== قسم جديد: أنصاف الأقطار (Border Radius) ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-circle-notch text-red-600"></i>
+                أنصاف الأقطار (Border Radius) - كلاسات <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">rounded-*</code>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-none shadow-md">
+                    <span>rounded-none</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-sm shadow-md">
+                    <span>rounded-sm</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded shadow-md">
+                    <span>rounded</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-md shadow-md">
+                    <span>rounded-md</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-lg shadow-md">
+                    <span>rounded-lg</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-xl shadow-md">
+                    <span>rounded-xl</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-2xl shadow-md">
+                    <span>rounded-2xl</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-3xl shadow-md">
+                    <span>rounded-3xl</span>
+                </div>
+                <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-center rounded-full shadow-md">
+                    <span>rounded-full</span>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-4">
+                <i class="fas fa-info-circle ml-1"></i> يمكنك أيضاً استخدام <code>rounded-t-*</code>, <code>rounded-b-*</code>, <code>rounded-l-*</code>, <code>rounded-r-*</code> لتدوير زوايا محددة.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-2">
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('rounded-t-lg')">rounded-t-lg</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('rounded-b-lg')">rounded-b-lg</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('rounded-l-full')">rounded-l-full</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('rounded-r-full')">rounded-r-full</span>
+            </div>
+        </section>
+
+        <!-- ========== قسم جديد: عرض الحدود (Border Width) ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-border-all text-indigo-600"></i>
+                عرض الحدود (Border Width) - كلاسات <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">border-{width}</code>
+            </h2>
+            <div class="flex flex-wrap gap-3 items-center justify-center">
+                <div class="border border-blue-500 p-3 bg-gray-100 dark:bg-gray-800 rounded">border (1px)</div>
+                <div class="border-2 border-blue-500 p-3 bg-gray-100 dark:bg-gray-800 rounded">border-2</div>
+                <div class="border-4 border-blue-500 p-3 bg-gray-100 dark:bg-gray-800 rounded">border-4</div>
+                <div class="border-8 border-blue-500 p-3 bg-gray-100 dark:bg-gray-800 rounded">border-8</div>
+                <div class="border-0 border-blue-500 p-3 bg-gray-100 dark:bg-gray-800 rounded">border-0</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-3">
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border')">border</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border-2')">border-2</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border-4')">border-4</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border-8')">border-8</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border-0')">border-0</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border-t-2')">border-t-2</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('border-b-4')">border-b-4</span>
+            </div>
+        </section>
+
+        <!-- ========== قسم كلاسات الألوان العملية (موجود مسبقاً) ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <i class="fas fa-code text-green-600"></i>
+                أمثلة عملية لكلاسات الألوان
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- خلفيات -->
+                <div class="space-y-3">
+                    <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 flex items-center gap-2"><i class="fas fa-fill-drip text-pink-600"></i> خلفيات <code>bg-*</code></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="bg-red-500 p-3 rounded-lg text-white text-sm shadow-md cursor-copy" onclick="copyClass('bg-red-500')" title="انسخ bg-red-500">bg-red-500</div>
+                        <div class="bg-blue-500 p-3 rounded-lg text-white text-sm shadow-md cursor-copy" onclick="copyClass('bg-blue-500')">bg-blue-500</div>
+                        <div class="bg-green-500 p-3 rounded-lg text-white text-sm shadow-md cursor-copy" onclick="copyClass('bg-green-500')">bg-green-500</div>
+                        <div class="bg-purple-500 p-3 rounded-lg text-white text-sm shadow-md cursor-copy" onclick="copyClass('bg-purple-500')">bg-purple-500</div>
+                        <div class="bg-amber-500 p-3 rounded-lg text-white text-sm shadow-md cursor-copy" onclick="copyClass('bg-amber-500')">bg-amber-500</div>
+                        <div class="bg-gray-800 p-3 rounded-lg text-white text-sm shadow-md cursor-copy" onclick="copyClass('bg-gray-800')">bg-gray-800</div>
+                    </div>
+                </div>
+                <!-- نصوص -->
+                <div class="space-y-3">
+                    <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 flex items-center gap-2"><i class="fas fa-font text-indigo-600"></i> نصوص <code>text-*</code></h3>
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <span class="text-red-600 font-bold text-sm p-2 border border-gray-200 rounded cursor-copy" onclick="copyClass('text-red-600')">text-red-600</span>
+                        <span class="text-blue-600 font-bold text-sm p-2 border border-gray-200 rounded cursor-copy" onclick="copyClass('text-blue-600')">text-blue-600</span>
+                        <span class="text-green-600 font-bold text-sm p-2 border border-gray-200 rounded cursor-copy" onclick="copyClass('text-green-600')">text-green-600</span>
+                        <span class="text-purple-600 font-bold text-sm p-2 border border-gray-200 rounded cursor-copy" onclick="copyClass('text-purple-600')">text-purple-600</span>
+                        <span class="text-amber-600 font-bold text-sm p-2 border border-gray-200 rounded cursor-copy" onclick="copyClass('text-amber-600')">text-amber-600</span>
+                        <span class="text-gray-800 font-bold text-sm p-2 border border-gray-200 rounded cursor-copy" onclick="copyClass('text-gray-800')">text-gray-800</span>
+                    </div>
+                </div>
+                <!-- حدود -->
+                <div class="space-y-3">
+                    <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 flex items-center gap-2"><i class="fas fa-border-all text-cyan-600"></i> حدود <code>border-*</code></h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="border-2 border-red-400 p-2 rounded cursor-copy" onclick="copyClass('border-red-400')">border-red-400</div>
+                        <div class="border-2 border-blue-400 p-2 rounded cursor-copy" onclick="copyClass('border-blue-400')">border-blue-400</div>
+                        <div class="border-2 border-green-400 p-2 rounded cursor-copy" onclick="copyClass('border-green-400')">border-green-400</div>
+                        <div class="border-2 border-purple-400 p-2 rounded cursor-copy" onclick="copyClass('border-purple-400')">border-purple-400</div>
+                        <div class="border-2 border-gray-400 p-2 rounded cursor-copy" onclick="copyClass('border-gray-400')">border-gray-400</div>
+                    </div>
+                </div>
+                <!-- حلقات التركيز (Ring) -->
+                <div class="space-y-3">
+                    <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 flex items-center gap-2"><i class="fas fa-circle-notch text-orange-600"></i> حلقات <code>ring-*</code></h3>
+                    <div class="flex flex-wrap gap-3">
+                        <input type="text" placeholder="ring-2 ring-blue-500" class="ring-2 ring-blue-500 p-2 rounded text-sm w-40 cursor-copy" onclick="copyClass('ring-2 ring-blue-500')" readonly>
+                        <input type="text" placeholder="ring-2 ring-pink-400" class="ring-2 ring-pink-400 p-2 rounded text-sm w-40 cursor-copy" onclick="copyClass('ring-2 ring-pink-400')" readonly>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== قسم: كلاسات المسافات ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-arrows-alt text-teal-600"></i> المسافات (Padding & Margin)</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">الكلاسات تتبع نظام رقمي: <code>p-*</code> (padding داخلي) و <code>m-*</code> (margin خارجي). مثال: <code>p-4</code> تعادل 1rem (16px).</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div class="bg-blue-100 dark:bg-blue-900 p-1 rounded text-center text-xs">p-1 (4px)</div>
+                <div class="bg-blue-100 dark:bg-blue-900 p-2 rounded text-center text-xs">p-2 (8px)</div>
+                <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded text-center text-xs">p-3 (12px)</div>
+                <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded text-center text-xs">p-4 (16px)</div>
+                <div class="bg-blue-100 dark:bg-blue-900 p-6 rounded text-center text-xs">p-6 (24px)</div>
+                <div class="bg-blue-100 dark:bg-blue-900 p-8 rounded text-center text-xs">p-8 (32px)</div>
+                <div class="bg-green-100 dark:bg-green-900 mt-2 p-2 rounded text-center text-xs">m-2 (8px خارجي)</div>
+                <div class="bg-green-100 dark:bg-green-900 mt-4 p-2 rounded text-center text-xs">mt-4 (علوي)</div>
+                <div class="bg-green-100 dark:bg-green-900 mr-4 p-2 rounded text-center text-xs">mr-4 (يمين)</div>
+                <div class="bg-green-100 dark:bg-green-900 mx-auto p-2 rounded text-center text-xs">mx-auto (وسط)</div>
+            </div>
+        </section>
+       
+       <!-- ========== قسم جديد: كلاسات الظلال (Shadows) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-moon text-indigo-600"></i>
+        كلاسات الظلال (Shadows) - <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">shadow-*</code>
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-none border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-none</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-sm border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-sm</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-md border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-md</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-lg border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-lg</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-xl border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-xl</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-2xl border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-2xl</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-700 rounded-lg text-center shadow-inner border border-gray-200 dark:border-gray-600">
+            <span class="font-medium">shadow-inner</span>
+        </div>
+    </div>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mt-4">
+        <i class="fas fa-info-circle ml-1"></i> يمكنك أيضاً استخدام ظلال ملونة: <code>shadow-blue-500/50</code>
+    </p>
+    <div class="flex flex-wrap gap-2 mt-2">
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('shadow-lg')">shadow-lg</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('shadow-xl')">shadow-xl</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('shadow-blue-500/50')">shadow-blue-500/50</span>
+    </div>
+</section>
+
+<!-- ========== قسم بونص: كلاسات ألوان خاصة ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-star text-yellow-500"></i>
+        كلاسات ألوان خاصة
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="p-3 bg-inherit border border-gray-300 rounded text-center">bg-inherit</div>
+        <div class="p-3 bg-current text-white bg-blue-600 rounded text-center">bg-current</div>
+        <div class="p-3 bg-transparent border border-gray-300 rounded text-center">bg-transparent</div>
+        <div class="p-3 bg-black text-white rounded text-center">bg-black</div>
+        <div class="p-3 bg-white border border-gray-300 rounded text-center">bg-white</div>
+    </div>
+</section>
+
+
+<!-- ========== قسم جديد: كلاسات التحولات (Transitions) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-forward text-green-600"></i>
+        كلاسات التحولات (Transitions) - <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">transition-*</code>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- transition-property -->
+        <div>
+            <h3 class="font-semibold mb-3 text-center">أنواع التحول</h3>
+            <div class="space-y-3">
+                <div class="flex items-center gap-3 p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <div class="w-16 h-16 bg-blue-500 rounded transition-all hover:scale-110 hover:bg-purple-500"></div>
+                    <span><code>transition-all</code> - كل الخصائص</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <div class="w-16 h-16 bg-green-500 rounded transition-transform hover:scale-110"></div>
+                    <span><code>transition-transform</code> - التحويل فقط</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <div class="w-16 h-16 bg-pink-500 rounded transition-colors hover:bg-yellow-500"></div>
+                    <span><code>transition-colors</code> - الألوان فقط</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- مدة وسرعة التحول -->
+        <div>
+            <h3 class="font-semibold mb-3 text-center">المدة والتأخير</h3>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">
+                    <div class="w-full h-8 bg-blue-500 rounded transition-all duration-75 hover:w-full"></div>
+                    <span class="text-xs">duration-75</span>
+                </div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">
+                    <div class="w-full h-8 bg-blue-500 rounded transition-all duration-300 hover:w-full"></div>
+                    <span class="text-xs">duration-300</span>
+                </div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">
+                    <div class="w-full h-8 bg-blue-500 rounded transition-all duration-700 hover:w-full"></div>
+                    <span class="text-xs">duration-700</span>
+                </div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">
+                    <div class="w-full h-8 bg-blue-500 rounded transition-all duration-1000 hover:w-full"></div>
+                    <span class="text-xs">duration-1000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- delay و timing function -->
+    <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center cursor-copy" onclick="copyClass('transition delay-150')">
+            <code>delay-150</code>
+        </div>
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center cursor-copy" onclick="copyClass('transition delay-300')">
+            <code>delay-300</code>
+        </div>
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center cursor-copy" onclick="copyClass('ease-linear')">
+            <code>ease-linear</code>
+        </div>
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center cursor-copy" onclick="copyClass('ease-in-out')">
+            <code>ease-in-out</code>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== قسم جديد: كلاسات التأثيرات (Effects) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-adjust text-purple-600"></i>
+        كلاسات التأثيرات (Opacity & Blur) - <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">opacity-*</code>, <code>blur-*</code>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Opacity -->
+        <div>
+            <h3 class="font-semibold mb-3">الشفافية (Opacity)</h3>
+            <div class="flex flex-wrap gap-2">
+                <div class="bg-blue-500 opacity-100 p-3 rounded text-white text-xs">100%</div>
+                <div class="bg-blue-500 opacity-75 p-3 rounded text-white text-xs">75%</div>
+                <div class="bg-blue-500 opacity-50 p-3 rounded text-white text-xs">50%</div>
+                <div class="bg-blue-500 opacity-25 p-3 rounded text-white text-xs">25%</div>
+                <div class="bg-blue-500 opacity-5 p-3 rounded text-white text-xs">5%</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('opacity-100')">opacity-100</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('opacity-50')">opacity-50</span>
+                <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('opacity-0')">opacity-0</span>
+            </div>
+        </div>
+        
+        <!-- Blur -->
+        <div>
+            <h3 class="font-semibold mb-3">التمويه (Blur)</h3>
+            <div class="flex flex-wrap gap-2">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-500 blur-none p-3 rounded text-white text-xs">blur-none</div>
+                <div class="bg-gradient-to-r from-blue-500 to-purple-500 blur-sm p-3 rounded text-white text-xs">blur-sm</div>
+                <div class="bg-gradient-to-r from-blue-500 to-purple-500 blur p-3 rounded text-white text-xs">blur</div>
+                <div class="bg-gradient-to-r from-blue-500 to-purple-500 blur-lg p-3 rounded text-white text-xs">blur-lg</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Effects إضافية -->
+    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div class="bg-gray-200 dark:bg-gray-700 p-2 rounded text-center brightness-50">brightness-50</div>
+        <div class="bg-gray-200 dark:bg-gray-700 p-2 rounded text-center contrast-50">contrast-50</div>
+        <div class="bg-gray-200 dark:bg-gray-700 p-2 rounded text-center grayscale">grayscale</div>
+        <div class="bg-gray-200 dark:bg-gray-700 p-2 rounded text-center invert">invert</div>
+    </div>
+</section>
+
+
+<!-- ========== قسم جديد: كلاسات التدوير والتحويل (Transforms) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-sync-alt text-yellow-600"></i>
+        كلاسات التحويل (Transforms) - 
+    </h2>
+    <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">rotate-*</code>
+        <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">translate-*</code>
+        <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">scale-*</code>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Rotate -->
+        <div class="text-center">
+            <h3 class="font-semibold mb-2">تدوير (Rotate)</h3>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <div class="w-16 h-16 bg-blue-500 rotate-0 flex items-center justify-center text-white rounded">0</div>
+                <div class="w-16 h-16 bg-blue-500 rotate-45 flex items-center justify-center text-white rounded">45°</div>
+                <div class="w-16 h-16 bg-blue-500 rotate-90 flex items-center justify-center text-white rounded">90°</div>
+                <div class="w-16 h-16 bg-blue-500 rotate-180 flex items-center justify-center text-white rounded">180°</div>
+            </div>
+        </div>
+        
+        <!-- Scale -->
+        <div class="text-center">
+            <h3 class="font-semibold mb-2">تكبير/تصغير (Scale)</h3>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <div class="w-16 h-16 bg-green-500 scale-75 flex items-center justify-center text-white rounded">0.75</div>
+                <div class="w-16 h-16 bg-green-500 scale-90 flex items-center justify-center text-white rounded">0.9</div>
+                <div class="w-16 h-16 bg-green-500 scale-100 flex items-center justify-center text-white rounded">1</div>
+                <div class="w-16 h-16 bg-green-500 scale-110 flex items-center justify-center text-white rounded">1.1</div>
+            </div>
+        </div>
+        
+        <!-- Translate -->
+        <div class="text-center">
+            <h3 class="font-semibold mb-2">تحريك (Translate)</h3>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <div class="relative">
+                    <div class="w-16 h-16 bg-purple-500 opacity-50 rounded absolute"></div>
+                    <div class="w-16 h-16 bg-purple-500 translate-x-2 translate-y-2 rounded flex items-center justify-center text-white relative">+2</div>
+                </div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-purple-500 opacity-50 rounded absolute"></div>
+                    <div class="w-16 h-16 bg-purple-500 translate-x-4 translate-y-4 rounded flex items-center justify-center text-white relative">+4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- كلاسات قابلة للنسخ -->
+    <div class="flex flex-wrap gap-2 mt-4 justify-center">
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('rotate-45')">rotate-45</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('scale-110')">scale-110</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('translate-x-4')">translate-x-4</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('-translate-y-2')">-translate-y-2</span>
+    </div>
+</section>
+
+
+<!-- ========== قسم جديد: كلاسات المؤشر والتفاعل (Interactivity) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-mouse-pointer text-red-600"></i>
+        كلاسات التفاعل (Interactivity) - 
+    </h2>
+    <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">cursor-*</code>, <code>select-*</code>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-auto">cursor-auto</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-pointer">cursor-pointer</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-wait">cursor-wait</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-text">cursor-text</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-move">cursor-move</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-not-allowed">cursor-not-allowed</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-grab">cursor-grab</div>
+        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-center cursor-zoom-in">cursor-zoom-in</div>
+    </div>
+    
+    <div class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-center select-none">select-none (لا يمكن التحديد)</div>
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-center select-text">select-text (نص عادي)</div>
+        <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-center select-all">select-all (يحدد الكل)</div>
+    </div>
+</section>
+
+<!-- ========== قسم جديد: كلاسات الخلفيات المتقدمة (Backgrounds) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-image text-pink-600"></i>
+        كلاسات الخلفيات (Backgrounds) - <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">bg-gradient-*</code>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <h3 class="font-semibold mb-2">تدرجات خطية (Linear Gradients)</h3>
+            <div class="space-y-2">
+                <div class="h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded flex items-center px-3 text-white text-sm">bg-gradient-to-r</div>
+                <div class="h-12 bg-gradient-to-l from-green-500 to-blue-500 rounded flex items-center px-3 text-white text-sm">bg-gradient-to-l</div>
+                <div class="h-12 bg-gradient-to-t from-yellow-500 to-red-500 rounded flex items-center px-3 text-white text-sm">bg-gradient-to-t</div>
+                <div class="h-12 bg-gradient-to-b from-pink-500 to-purple-500 rounded flex items-center px-3 text-white text-sm">bg-gradient-to-b</div>
+            </div>
+        </div>
+        
+        <div>
+            <h3 class="font-semibold mb-2">تدرجات متعددة الألوان</h3>
+            <div class="space-y-2">
+                <div class="h-12 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded flex items-center px-3 text-white text-sm">via-purple-500</div>
+                <div class="h-12 bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 rounded flex items-center px-3 text-white text-sm">via-yellow-500</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- خلفيات صور (مثال نظري) -->
+    <div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <p class="text-sm"><i class="fas fa-info-circle ml-1"></i> كلاسات خلفيات الصور: <code>bg-cover</code>, <code>bg-contain</code>, <code>bg-center</code>, <code>bg-no-repeat</code></p>
+        <div class="flex flex-wrap gap-2 mt-2">
+            <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('bg-cover')">bg-cover</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('bg-center')">bg-center</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('bg-no-repeat')">bg-no-repeat</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('bg-fixed')">bg-fixed</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== قسم جديد: كلاسات العرض والارتفاع (Sizing) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-arrows-alt-h text-blue-600"></i>
+        كلاسات العرض والارتفاع (Sizing) - <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">w-*</code>, <code>h-*</code>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Width -->
+        <div>
+            <h3 class="font-semibold mb-3">العرض (Width)</h3>
+            <div class="space-y-2">
+                <div class="bg-blue-100 dark:bg-blue-900 h-8 w-1/4 rounded flex items-center px-2 text-xs">w-1/4</div>
+                <div class="bg-blue-100 dark:bg-blue-900 h-8 w-1/3 rounded flex items-center px-2 text-xs">w-1/3</div>
+                <div class="bg-blue-100 dark:bg-blue-900 h-8 w-1/2 rounded flex items-center px-2 text-xs">w-1/2</div>
+                <div class="bg-blue-100 dark:bg-blue-900 h-8 w-2/3 rounded flex items-center px-2 text-xs">w-2/3</div>
+                <div class="bg-blue-100 dark:bg-blue-900 h-8 w-3/4 rounded flex items-center px-2 text-xs">w-3/4</div>
+                <div class="bg-blue-100 dark:bg-blue-900 h-8 w-full rounded flex items-center px-2 text-xs">w-full</div>
+            </div>
+        </div>
+        
+        <!-- Height -->
+        <div>
+            <h3 class="font-semibold mb-3">الارتفاع (Height)</h3>
+            <div class="flex items-end gap-2 h-32">
+                <div class="bg-green-100 dark:bg-green-900 w-12 h-8 rounded flex items-end justify-center text-xs">h-8</div>
+                <div class="bg-green-100 dark:bg-green-900 w-12 h-16 rounded flex items-end justify-center text-xs">h-16</div>
+                <div class="bg-green-100 dark:bg-green-900 w-12 h-24 rounded flex items-end justify-center text-xs">h-24</div>
+                <div class="bg-green-100 dark:bg-green-900 w-12 h-32 rounded flex items-end justify-center text-xs">h-32</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- قيم إضافية -->
+    <div class="mt-4 flex flex-wrap gap-2">
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('w-screen')">w-screen</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('h-screen')">h-screen</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('w-auto')">w-auto</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('min-h-screen')">min-h-screen</span>
+        <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('max-w-md')">max-w-md</span>
+    </div>
+</section>
+
+<!-- ========== قسم جديد: كلاسات الموضع (Positioning) ========== -->
+<section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-map-pin text-orange-600"></i>
+        كلاسات الموضع (Positioning) - 
+    </h2>
+    <code class="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">absolute</code>, <code>relative</code>, <code>z-*</code>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Position types -->
+        <div>
+            <h3 class="font-semibold mb-3">أنواع الموضع</h3>
+            <div class="space-y-2">
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">static</div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">fixed</div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">absolute</div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">relative</div>
+                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-center">sticky</div>
+            </div>
+        </div>
+        
+        <!-- Z-index example -->
+        <div>
+            <h3 class="font-semibold mb-3">مثال Z-index</h3>
+            <div class="relative h-32 bg-gray-200 dark:bg-gray-700 rounded-lg">
+                <div class="absolute top-2 right-2 w-16 h-16 bg-blue-500 rounded z-10 flex items-center justify-center text-white">z-10</div>
+                <div class="absolute top-4 right-4 w-16 h-16 bg-green-500 rounded z-20 flex items-center justify-center text-white">z-20</div>
+                <div class="absolute top-6 right-6 w-16 h-16 bg-red-500 rounded z-30 flex items-center justify-center text-white">z-30</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top/Right/Bottom/Left -->
+    <div class="mt-4">
+        <h3 class="font-semibold mb-2">اتجاهات (inset-*)</h3>
+        <div class="flex flex-wrap gap-2">
+            <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('top-0')">top-0</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('right-0')">right-0</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('bottom-0')">bottom-0</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('left-0')">left-0</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('inset-0')">inset-0</span>
+            <span class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-sm cursor-copy" onclick="copyClass('inset-x-0')">inset-x-0</span>
+        </div>
+    </div>
+</section>
+
+
+
+        <!-- ========== قسم: Flexbox و Grid ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-layer-group text-yellow-600"></i> Flexbox & Grid</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold mb-2">Flexbox</h3>
+                    <div class="flex gap-2 bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                        <div class="bg-indigo-400 p-2 rounded text-white text-xs">flex</div>
+                        <div class="bg-indigo-400 p-2 rounded text-white text-xs">items-center</div>
+                        <div class="bg-indigo-400 p-2 rounded text-white text-xs">justify-between</div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-2">
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('flex')">flex</span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('flex-col')">flex-col</span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('items-center')">items-center</span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('justify-between')">justify-between</span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('gap-4')">gap-4</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">Grid</h3>
+                    <div class="grid grid-cols-3 gap-1 bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                        <div class="bg-amber-400 p-1 rounded text-center text-xs">1</div>
+                        <div class="bg-amber-400 p-1 rounded text-center text-xs">2</div>
+                        <div class="bg-amber-400 p-1 rounded text-center text-xs">3</div>
+                        <div class="bg-amber-400 p-1 rounded text-center text-xs">4</div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-2">
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('grid')">grid</span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('grid-cols-3')">grid-cols-3</span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs cursor-copy" onclick="copyClass('col-span-2')">col-span-2</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- ========== قسم: الاستجابة والوضع الليلي ========== -->
+        <section class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-800">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-mobile-alt text-purple-600"></i> استجابة (Responsive) ووضع ليلي (Dark Mode)</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-lg">📱 نقاط القطع (Breakpoints):</h3>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <span class="bg-sky-100 dark:bg-sky-900 px-2 py-1 rounded">sm: (≥640px)</span>
+                        <span class="bg-sky-100 dark:bg-sky-900 px-2 py-1 rounded">md: (≥768px)</span>
+                        <span class="bg-sky-100 dark:bg-sky-900 px-2 py-1 rounded">lg: (≥1024px)</span>
+                        <span class="bg-sky-100 dark:bg-sky-900 px-2 py-1 rounded">xl: (≥1280px)</span>
+                        <span class="bg-sky-100 dark:bg-sky-900 px-2 py-1 rounded">2xl: (≥1536px)</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                        <p class="text-sm text-center md:text-right">هذا النص في الوسط على الجوال (<code>text-center</code>) وعلى اليمين على التابلت فما فوق (<code>md:text-right</code>).</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex justify-center items-center gap-2 flex-wrap">
+                        <span class="dark:hidden bg-yellow-200 p-1 rounded text-xs">🌞 يظهر في الوضع العادي فقط (dark:hidden)</span>
+                        <span class="hidden dark:inline bg-gray-700 text-white p-1 rounded text-xs">🌙 يظهر في الوضع الليلي فقط (hidden dark:inline)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="container mx-auto px-4 py-6 mt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-500">
+        <i class="fas fa-code text-gray-400 ml-1"></i> مرجع مساعد للمطورين | جميع الألوان والكلاسات مبنية على <a href="https://tailwindcss.com/docs/colors" target="_blank" class="text-blue-600 hover:underline">Tailwind CSS v4</a>
+    </footer>
+
+    <script>
+        // قائمة الألوان الكاملة (حسب الصفحة الرسمية)
+        const colorFamilies = [
+            { name: 'أحمر', key: 'red' }, { name: 'برتقالي', key: 'orange' }, { name: 'عنبر', key: 'amber' },
+            { name: 'أصفر', key: 'yellow' }, { name: 'ليموني', key: 'lime' }, { name: 'أخضر', key: 'green' },
+            { name: 'زمردي', key: 'emerald' }, { name: 'فيروزي', key: 'teal' }, { name: 'سماوي', key: 'cyan' },
+            { name: 'سماء', key: 'sky' }, { name: 'أزرق', key: 'blue' }, { name: 'نيلي', key: 'indigo' },
+            { name: 'بنفسجي', key: 'violet' }, { name: 'ارجواني', key: 'purple' }, { name: 'فوشيا', key: 'fuchsia' },
+            { name: 'وردي', key: 'pink' }, { name: 'روز', key: 'rose' }, { name: 'أردوازي', key: 'slate' },
+            { name: 'رمادي', key: 'gray' }, { name: 'زنك', key: 'zinc' }, { name: 'محايد', key: 'neutral' },
+            { name: 'حجري', key: 'stone' }
+        ];
+
+        const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+
+        function generatePalette() {
+            const container = document.getElementById('colorPaletteContainer');
+            if (!container) return;
+            let html = '';
+            colorFamilies.forEach(family => {
+                html += `<div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 border border-gray-200 dark:border-gray-700">`;
+                html += `<h3 class="font-bold text-lg mb-2 capitalize" style="color: var(--tw-${family.key}-600);">${family.name} (${family.key})</h3>`;
+                html += `<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-1.5">`;
+                shades.forEach(shade => {
+                    const bgClass = `bg-${family.key}-${shade}`;
+                    const textClass = shade > 500 ? 'text-white' : 'text-gray-900';
+                    html += `<div onclick="copyClass('${bgClass}')" class="${bgClass} ${textClass} text-xs p-1.5 rounded shadow-sm text-center cursor-pointer transition transform hover:scale-105 hover:shadow-md" title="انسخ ${bgClass}">${shade}</div>`;
+                });
+                html += `</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+        // عرض رسائل التنبيه
+// دالة مساعدة: لعرض رسائل التنبيه للمستخدم (نجاح، خطأ، تحذير)
+function showAlert(type, message) {
+  // إزالة أي تنبيهات سابقة لتجنب التكدس
+  const existingAlert = document.querySelector('.fixed.top-4.right-4.z-50');
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+
+  const alertBox = document.createElement('div');
+  alertBox.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-all duration-300 ease-in-out transform translate-x-0 ${
+    type === 'error'
+      ? 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
+      : type === 'warning'
+        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100'
+        : 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
+  }`;
+  alertBox.innerHTML = `
+<div class="flex items-center gap-2">
+    <span class="text-lg">${type === 'error' ? '❌' : type === 'warning' ? '⚠️' : '✅'}</span>
+    <span>${message}</span>
+    <button class="ml-auto text-current opacity-75 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-current rounded-full" onclick="this.closest('div').remove()">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+</div>
+`;
+
+  document.body.appendChild(alertBox);
+  // إزالة التنبيه تلقائيًا بعد 5 ثوانٍ
+  setTimeout(() => {
+    if (alertBox.parentElement) {
+      // تحقق مما إذا كان العنصر لا يزال موجودًا
+      alertBox.classList.add('translate-x-full', 'opacity-0'); // أضف تأثير الاختفاء
+      alertBox.addEventListener('transitionend', () => alertBox.remove());
+    }
+  }, 5000);
+}
+
+
+        // دالة نسخ الكلاس إلى الحافظة
+        window.copyClass = function(className) {
+            navigator.clipboard.writeText(className).then(() => { 
+       showAlert('success', ` تم نسخ: ${className}`);    
+            
+                // يمكن إضافة إشعار بسيط
+              //  alert(`✅ تم نسخ: ${className}`);
+            }).catch(err => {
+                console.error('فشل النسخ: ', err);
+           //     alert('❌ فشل النسخ، يرجى المحاولة مرة أخرى.');
+                showAlert('error', ' فشل النسخ، يرجى المحاولة مرة أخرى');
+                
+            
+            });
+        }
+
+        // تفعيل الوضع الليلي
+        const toggleBtn = document.getElementById('darkModeToggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                // تحديث الأيقونة
+                const icon = toggleBtn.querySelector('i');
+                if (document.documentElement.classList.contains('dark')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+        }
+
+        // بدء التوليد
+        generatePalette();
+
+        // إضافة بعض الكلاسات الإضافية القابلة للنسخ لكل العناصر التي تحمل cursor-copy
+        document.querySelectorAll('.cursor-copy').forEach(el => {
+            if (!el.hasAttribute('onclick')) {
+                const text = el.innerText.trim();
+                if (text && !text.includes(' ')) { // تجنب النصوص الطويلة
+                    el.setAttribute('onclick', `copyClass('${text}')`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
