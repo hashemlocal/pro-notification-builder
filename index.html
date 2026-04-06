@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Pro Notification Builder - الإصدار الاحترافي</title>
+    
+    <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/tajawal-font.css">
+    
+    
+    <link rel="stylesheet" href="css/prism-tomorrow.min.css" />
+    
+    
+    <link rel="stylesheet" href="css/style.css">
+     <script src="js/tailwindcss.js"></script>
+  <script src="js/chart.min.js"></script>   
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#5D5CDE',        
+          'primary-dark': '#4C4BB5', 
+          secondary: '#E5E5FF',
+          success: '#10b981',
+          danger: '#ef4444',
+          warning: '#f59e0b',
+          info: '#0ea5e9',
+          dark: '#0F172A',
+          'dark-light': '#334155',
+          'light-gray': '#f5f5f5',
+          },
+          fontFamily: {
+            'arabic': ['Tajawal', 'Arial', 'ns-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 transition-colors duration-300 font-cairo">
+
+<div class="container mx-auto p-4 sm:p-6 max-w-7xl" id="app">
+    
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 sm:mb-8">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+            <div class="bg-blue-600 text-white p-3 sm:p-4 rounded-2xl shadow-lg">
+                <i class="fas fa-bolt text-xl sm:text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 flex flex-wrap items-center gap-2">
+                    Pro Notification Builder
+                    <span class="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">v2.0</span>
+                </h1>
+                <p class="text-sm sm:text-base text-gray-600">منشئ التنبيهات الاحترافي مع دعم كامل للمتغيرات</p>
+            </div>
+        </div>
+        
+        
+        <div class="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-center sm:justify-end">
+            <label class="theme-switch flex-shrink-0">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+            
+            <button onclick="saveProject()" class="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base transition flex items-center gap-1">
+                <i class="fas fa-save ml-1"></i>
+                <span class="hidden xs:inline">حفظ</span>
+            </button>
+            <button onclick="loadProject()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base transition flex items-center gap-1">
+                <i class="fas fa-folder-open ml-1"></i>
+                <span class="hidden xs:inline">فتح</span>
+            </button>
+        </div>
+    </div>
+    
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        
+        <div class="lg:col-span-2 space-y-4 sm:space-y-6">
+            
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 hover-card">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-800">
+                        <i class="fas fa-pen-fancy ml-2 text-blue-600"></i>
+                        محرر النص المتقدم
+                    </h2>
+                    <div class="flex gap-1 sm:gap-2">
+                        <button onclick="formatText('bold')" class="p-2 hover:bg-gray-100 rounded" title="عريض">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button onclick="formatText('italic')" class="p-2 hover:bg-gray-100 rounded" title="مائل">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                            
+    <button onclick="insertNewLine()" class="p-2 hover:bg-gray-100 rounded text-gray-700 font-bold" title="إدراج سطر جديد (\\n)">
+        \n
+    </button>
+                        <button onclick="insertVariable()" class="p-2 hover:bg-gray-100 rounded text-blue-600" title="إضافة متغير">
+                            <i class="fas fa-code"></i>
+                        </button>
+                        <button onclick="clearEditor()" class="p-2 hover:bg-gray-100 rounded text-red-600" title="مسح">
+                            <i class="fas fa-eraser"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- محرر النص الرئيسي -->
+                <div class="advanced-editor rounded-lg p-3 sm:p-4 bg-gray-50 mb-4">
+                    <textarea id="notificationText" rows="4" 
+                        class="w-full bg-transparent border-none focus:ring-0 text-gray-800 text-base sm:text-lg resize-none code-font"
+                        placeholder="اكتب نص التنبيه هنا... يمكنك استخدام ${متغير} لإدراج المتغيرات"></textarea>
+                </div>
+                
+                <!-- مؤشرات النص -->
+                <div class="flex flex-col xs:flex-row justify-between gap-2 text-sm text-gray-500">
+                    <span>
+                        <i class="fas fa-text-height ml-1"></i>
+                        <span id="charCount">0</span> حرف
+                    </span>
+                    <span>
+                        <i class="fas fa-code ml-1"></i>
+                        <span id="varCount">0</span> متغير
+                    </span>
+                </div>
+            </div>
+            
+            <!-- إدارة المتغيرات المتقدمة -->
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 hover-card">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-800">
+                        <i class="fas fa-cubes ml-2 text-purple-600"></i>
+                        إدارة المتغيرات المخصصة
+                    </h2>
+                    <button onclick="addCustomVariable()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition w-full sm:w-auto">
+                        <i class="fas fa-plus ml-2"></i>
+                        متغير جديد
+                    </button>
+                </div>
+                
+                <!-- نموذج إضافة متغير مخصص -->
+                <div id="variableForm" class="hidden mb-4 p-4 bg-gray-50 rounded-lg animate-slide">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">اسم المتغير</label>
+                            <input type="text" id="newVarName" 
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                placeholder="مثال: user.name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">القيمة التجريبية</label>
+                            <input type="text" id="newVarValue" 
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                placeholder="مثال: أحمد">
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2 mt-4">
+                        <button onclick="saveCustomVariable()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm">
+                            <i class="fas fa-check ml-2"></i>
+                            حفظ
+                        </button>
+                        <button onclick="cancelVariableForm()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
+                            <i class="fas fa-times ml-2"></i>
+                            إلغاء
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- قائمة المتغيرات المخصصة -->
+                <div class="space-y-3 max-h-64 overflow-y-auto p-2 scrollbar-thin">
+                    <div id="variablesList" class="space-y-2"></div>
+                    
+                    <!-- متغيرات افتراضية -->
+                    <div class="mt-4">
+                        <h3 class="text-sm font-semibold text-gray-500 mb-2">متغيرات مقترحة</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span onclick="addSuggestedVar('filteredProducts.length', '5')" class="variable-tag" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                                <i class="fas fa-box"></i>
+                                filteredProducts.length
+                            </span>
+                            <span onclick="addSuggestedVar('error.message', 'فشل الاتصال')" class="variable-tag" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);">
+                                <i class="fas fa-bug"></i>
+                                error.message
+                            </span>
+                            <span onclick="addSuggestedVar('user.name', 'محمد أحمد')" class="variable-tag" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                                <i class="fas fa-user"></i>
+                                user.name
+                            </span>
+                            <span onclick="addSuggestedVar('totalPrice', '1250.50')" class="variable-tag" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);">
+                                <i class="fas fa-money-bill"></i>
+                                totalPrice
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 hover-card">
+                <label class="block text-base sm:text-lg font-bold text-gray-800 mb-4">
+                    <i class="fas fa-code-branch ml-2 text-indigo-600"></i>
+                    نوع الدالة
+                </label>
+                
+                <div class="grid grid-cols-1 xs:grid-cols-2 gap-3">
+                    <button onclick="setFunctionType('showNotification')" class="function-btn p-3 rounded-lg border-2 border-indigo-200 hover:bg-indigo-50 transition text-right" data-function="showNotification">
+                        <div class="font-bold text-indigo-700">showNotification</div>
+                        <div class="text-xs text-gray-500">دالة مخصصة بسيطة</div>
+                    </button>
+                    <button onclick="setFunctionType('addNotification')" class="function-btn p-3 rounded-lg border-2 border-purple-200 hover:bg-purple-50 transition text-right" data-function="addNotification">
+                        <div class="font-bold text-purple-700">addNotification</div>
+                        <div class="text-xs text-gray-500">مناسبة لـ Vue.js</div>
+                    </button>
+                    <button onclick="setFunctionType('showNotificationCenter')" class="function-btn p-3 rounded-lg border-2 border-blue-200 hover:bg-blue-50 transition text-right" data-function="showNotificationCenter">
+                        <div class="font-bold text-blue-700">showNotificationCenter</div>
+                        <div class="text-xs text-gray-500">اشعار وسط الشاشة | اغلاق تلقائي</div>
+                    </button>
+                    <button onclick="setFunctionType('showNotificationCenterPersistent')" class="function-btn p-3 rounded-lg border-2 border-purple-600 hover:bg-purple-50 transition text-right" data-function="showNotificationCenterPersistent">
+                        <div class="font-bold text-purple-400">showNotificationCenterPersistent</div>
+                        <div class="text-xs text-gray-500">اشعار  وسط الشاشة مع زر اغلاق</div>
+                    </button>
+                    <button onclick="setFunctionType('console')" class="function-btn p-3 rounded-lg border-2 border-gray-200 hover:bg-gray-50 transition text-right" data-function="console">
+                        <div class="font-bold text-gray-700">console.log/error</div>
+                        <div class="text-xs text-gray-500">للتطوير والتصحيح</div>
+                    </button>
+                    <button onclick="setFunctionType('toast')" class="function-btn p-3 rounded-lg border-2 border-green-200 hover:bg-green-50 transition text-right" data-function="toast">
+                        <div class="font-bold text-green-700">toast</div>
+                        <div class="text-xs text-gray-500">مكتبة React Toast</div>
+                    </button>
+                    <button onclick="setFunctionType('swal')" class="function-btn p-3 rounded-lg border-2 border-red-200 hover:bg-red-50 transition text-right" data-function="swal">
+                        <div class="font-bold text-red-700">SweetAlert</div>
+                        <div class="text-xs text-gray-500">نوافذ منبثقة جميلة</div>
+                    </button>
+                    <button onclick="setFunctionType('notyf')" class="function-btn p-3 rounded-lg border-2 border-yellow-200 hover:bg-yellow-50 transition text-right" data-function="notyf">
+                        <div class="font-bold text-yellow-700">Notyf</div>
+                        <div class="text-xs text-gray-500">مكتبة خفيفة وسريعة</div>
+                    </button>
+                    <button onclick="setFunctionType('custom')" class="function-btn p-3 rounded-lg border-2 border-pink-200 hover:bg-pink-50 transition text-right" data-function="custom">
+                        <div class="font-bold text-pink-700">تخصيص مخصص</div>
+                        <div class="text-xs text-gray-500">أضف الدالة الخاصة بك</div>
+                    </button>
+                </div>
+                
+                <div id="customFunctionField" class="mt-3 hidden">
+                    <input type="text" id="customFunctionName" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                        placeholder="أدخل اسم الدالة المخصصة...">
+                </div>
+            </div>
+        </div>
+        
+   
+        <div class="space-y-4 sm:space-y-6">
+            <!-- معاينة حية متقدمة -->
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 hover-card">
+                <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-eye ml-2 text-green-600"></i>
+                    معاينة حية
+                </h2>
+                
+                <div id="previewContainer" class="mb-6">
+                    <div id="previewBox" class="p-4 sm:p-6 rounded-xl text-white text-center transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-600">
+                        <div class="text-3xl sm:text-4xl mb-3" id="previewIcon">🔔</div>
+                        <div id="previewText" class="text-base sm:text-lg font-medium">نص التنبيه هنا</div>
+                    </div>
+                </div>
+                
+                <!-- اختيار النوع -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                    <button onclick="setType('success')" class="type-btn p-2 sm:p-3 rounded-lg border-2 border-green-200 hover:bg-green-50 transition text-xs sm:text-sm" data-type="success">
+                        <i class="fas fa-check-circle text-green-500 ml-1"></i>
+                        نجاح
+                    </button>
+                    <button onclick="setType('error')" class="type-btn p-2 sm:p-3 rounded-lg border-2 border-red-200 hover:bg-red-50 transition text-xs sm:text-sm" data-type="error">
+                        <i class="fas fa-times-circle text-red-500 ml-1"></i>
+                        خطأ
+                    </button>
+                    <button onclick="setType('warning')" class="type-btn p-2 sm:p-3 rounded-lg border-2 border-yellow-200 hover:bg-yellow-50 transition text-xs sm:text-sm" data-type="warning">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 ml-1"></i>
+                        تحذير
+                    </button>
+                    <button onclick="setType('info')" class="type-btn p-2 sm:p-3 rounded-lg border-2 border-blue-200 hover:bg-blue-50 transition text-xs sm:text-sm" data-type="info">
+                        <i class="fas fa-info-circle text-blue-500 ml-1"></i>
+                        معلومات
+                    </button>
+                </div>
+                
+                <!-- اختيار الأيقونة -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">اختر أيقونة (اختياري)</label>
+                    <div class="grid grid-cols-4 xs:grid-cols-6 gap-2">
+                        <button onclick="setIcon('🔔')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">🔔</button>
+                        <button onclick="setIcon('✅')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">✅</button>
+                        <button onclick="setIcon('❌')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">❌</button>
+                        <button onclick="setIcon('⚠️')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">⚠️</button>
+                        <button onclick="setIcon('🎉')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">🎉</button>
+                        <button onclick="setIcon('💾')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">💾</button>
+                        <button onclick="setIcon('📦')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">📦</button>
+                        <button onclick="setIcon('💰')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">💰</button>
+                        <button onclick="setIcon('👤')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">👤</button>
+                        <button onclick="setIcon('🔒')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">🔒</button>
+                        <button onclick="setIcon('⚡')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">⚡</button>
+                        <button onclick="setIcon('💡')" class="icon-option p-2 border rounded hover:bg-gray-50 text-xl">💡</button>
+                    </div>
+                    <button onclick="setIcon('')" class="text-sm text-blue-600 mt-2">
+                        <i class="fas fa-times ml-1"></i>
+                        بدون أيقونة
+                    </button>
+                </div>
+            </div>
+            
+            
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 hover-card">
+                <div class="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-3 mb-4">
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-800">
+                        <i class="fas fa-code ml-2 text-indigo-600"></i>
+                        الكود المُنشأ
+                    </h2>
+                    <div class="flex gap-2 w-full xs:w-auto">
+                        <button onclick="copyCode()" class="flex-1 xs:flex-none bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1">
+                            <i class="fas fa-copy"></i>
+                            <span>نسخ</span>
+                        </button>
+                        <button onclick="downloadCode()" class="flex-1 xs:flex-none bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1">
+                            <i class="fas fa-download"></i>
+                            <span>تحميل</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-900 rounded-xl p-3 sm:p-4 overflow-x-auto">
+                    <pre id="generatedCode" class="code-font text-green-400 text-xs sm:text-sm whitespace-pre-wrap"><code class="language-javascript"></code></pre>
+                </div>
+            </div>
+            
+            
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 hover-card">
+                <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-template ml-2 text-pink-600"></i>
+                    قوالب جاهزة
+                </h2>
+                
+                <div class="space-y-2">
+                    <button onclick="loadTemplate('products')" class="w-full text-right p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition flex items-center gap-3">
+                        <i class="fas fa-box text-blue-600 flex-shrink-0"></i>
+                        <span class="code-font text-xs sm:text-sm flex-1 truncate">تم تحديث (${count} منتج) بنجاح</span>
+                    </button>
+                    <button onclick="loadTemplate('invoice')" class="w-full text-right p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition flex items-center gap-3">
+                        <i class="fas fa-file-invoice text-green-600 flex-shrink-0"></i>
+                        <span class="code-font text-xs sm:text-sm flex-1 truncate">فشل تحميل الفاتورة: ${error}</span>
+                    </button>
+                    <button onclick="loadTemplate('user')" class="w-full text-right p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition flex items-center gap-3">
+                        <i class="fas fa-user text-purple-600 flex-shrink-0"></i>
+                        <span class="code-font text-xs sm:text-sm flex-1 truncate">مرحباً ${user.name}، لديك ${messages} رسائل</span>
+                    </button>
+                    <button onclick="loadTemplate('payment')" class="w-full text-right p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition flex items-center gap-3">
+                        <i class="fas fa-credit-card text-yellow-600 flex-shrink-0"></i>
+                        <span class="code-font text-xs sm:text-sm flex-1 truncate">تم الدفع: ${amount} ريال (${payment.method})</span>
+                    </button>
+                </div>
+            </div>
+            
+            
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mt-4 sm:mt-6">
+                <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-hands-helping ml-2 text-teal-600"></i>
+                    دوال مساعدة جاهزة
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-50 rounded-lg p-3 sm:p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-indigo-700">showNotification</h3>
+                            <button onclick="copyHelper('showNotification')" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <pre class="code-font text-xs bg-gray-900 text-green-400 p-2 rounded overflow-x-auto">const showNotification = (message, type = 'info') => {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white ${
+        type === 'error' ? 'bg-red-500' : 
+        type === 'success' ? 'bg-green-500' : 
+        type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
+    }`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 3000);
+};</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="mt-6 sm:mt-8 text-center text-gray-500 text-xs sm:text-sm">
+        <i class="fas fa-code-branch ml-2"></i>
+        تم إنشاء <span id="statsCount">0</span> مقطع كود في هذه الجلسة
+    </div>
+</div>
+
+
+    <script src="js/prism.js"></script>
+    <script src="js/prism-javascript.js"></script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
